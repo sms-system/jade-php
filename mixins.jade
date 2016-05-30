@@ -1,0 +1,17 @@
+mixin var(name, value)
+  <?php $#{name} = #{value}; ?>
+mixin if(condition)
+  +php-function('if', condition)
+    block
+mixin else()
+  | <?php else { ?>
+  block
+  | <?php } ?>
+mixin foreach(condition)
+  +php-function('foreach', condition)
+    block
+
+mixin php-function(name, args)
+  | <?php #{name} (#{args}) { ?>
+  block
+  | <?php } ?>
