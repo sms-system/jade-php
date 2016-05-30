@@ -1,17 +1,19 @@
-mixin var(name, value)
-  <?php $#{name} = #{value}; ?>
 mixin if(condition)
   +php-function('if', condition)
     block
 mixin else()
-  | <?php else { ?>
+  <?php else { ?>
   block
-  | <?php } ?>
+  <?php } ?>
+
 mixin foreach(condition)
   +php-function('foreach', condition)
     block
 
+mixin var(name, value)
+  <?php $!{name} = !{value}; ?>
+
 mixin php-function(name, args)
-  | <?php #{name} (#{args}) { ?>
+  <?php !{name} (!{args}) { ?>
   block
-  | <?php } ?>
+  <?php } ?>
