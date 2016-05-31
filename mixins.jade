@@ -1,19 +1,40 @@
+mixin php()
+  - var prevBuf = buf
+  - buf = []
+  - block()
+  - var blockResult = buf.join('')
+  - buf = prevBuf
+  != blockResult.replace(/\?><\?php/g, '')
+
+mixin php-wrap()
+  <?php 
+  block
+  ?>
+mixin php-html()
+  +php-wrap
+    |{
+  block
+  +php-wrap
+    |}
+mixin php-function(name, args)
+  +php-wrap
+    |!{name} (!{args}) 
+  +php-html
+    block
+
 mixin if(condition)
   +php-function('if', condition)
     block
 mixin else()
-  <?php else { ?>
-  block
-  <?php } ?>
+  +php-wrap
+    |else 
+  +php-html
+    block
 
 mixin foreach(condition)
   +php-function('foreach', condition)
     block
 
 mixin var(name, value)
-  <?php $!{name} = !{value}; ?>
-
-mixin php-function(name, args)
-  <?php !{name} (!{args}) { ?>
-  block
-  <?php } ?>
+  +php-wrap
+    |$!{name} = !{value};
