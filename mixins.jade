@@ -31,6 +31,26 @@ mixin else()
   +php-html
     block
 
+mixin switch(condition)
+  +php-wrap
+    |switch(!{condition}) 
+  +php-html
+    block
+mixin case(variant)
+  +php-wrap
+    |case (!{variant}) :
+  +php-html
+    block
+  +php-wrap
+    |break;
+mixin default()
+  +php-wrap
+    |default :
+  +php-html
+    block
+  +php-wrap
+    |break;
+
 mixin foreach(condition)
   +php-function('foreach', condition)
     block
