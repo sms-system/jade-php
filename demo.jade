@@ -1,6 +1,18 @@
 +php
-  +var('test', '[1, 2]')
-  +if('count($test) >= 2')
-    div 123
+  +var('test', 2)
+
+  +if('$test == 2')
+    div test = 2
   +else
-    div 456
+    div test != 2
+
+  +switch('$test')
+    +case(1)
+      div 1
+    +case(2)
+      div 2
+    +default
+      div other
+ 
+  +foreach('[1,2,3] as $v')
+    div <?=$v?>
