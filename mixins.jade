@@ -55,6 +55,15 @@ mixin foreach(condition)
   +php-function('foreach', condition)
     block
 
-mixin var(name, value)
+mixin set(name, value)
   +php-wrap
     |$!{name} = !{value};
+
+- function v(str) {
+-   str = str.split('|')
+-   var variable = '$' + str.shift()
+-   str.forEach(function(func){
+-     variable = func + '(' + variable + ')'
+-   })
+-   return '<?=' + variable + ';?>'
+- }
