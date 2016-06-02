@@ -1,5 +1,5 @@
 +php
-  +var('test', 2)
+  +set('test', 2)
 
   +if('$test == 2')
     div test = 2
@@ -16,3 +16,5 @@
  
   +foreach('[1,2,3] as $v')
     div <?=$v?>
+
+  | !{v('test|strtoupper')}
