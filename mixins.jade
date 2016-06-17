@@ -61,7 +61,7 @@ mixin set(name, value)
 
 - function v(str) {
 -   str = str.split('|')
--   var variable = '$' + str.shift()
+-   var variable = '$' + str.shift().replace(/\./g, '->')
 -   str.forEach(function(func){
 -     variable = func + '(' + variable + ')'
 -   })
