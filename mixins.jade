@@ -74,6 +74,12 @@ mixin set(name, value)
 - }
 
 - function v(str) {
--   str = _php_prepare_var(str)
--   return '<?=' + str + ';?>'
+-   str = str.split(':')
+-   out = _php_prepare_var(str[0])
+-   if (str[1]) {
+-     _then = str[2] ? _php_prepare_var(str[1]) : out;
+-     _else = str[2] ? _php_prepare_var(str[2]) : _php_prepare_var(str[1]);
+-     out = out + '?' + _then + ':' + _else
+-   }
+-   return '<?=' + out + ';?>'
 - }
