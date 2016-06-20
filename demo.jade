@@ -1,12 +1,12 @@
 +php
   +set('test', 2)
 
-  +if('$test == 2')
+  +if('test == 2')
     div test = 2
   +else
     div test != 2
 
-  +switch('$test')
+  +switch('test')
     +case(1)
       div 1
     +case(2)
@@ -14,7 +14,7 @@
     +default
       div other
  
-  +foreach('[1,2,3] as $v')
+  +foreach('[1,2,3] as v')
     div !{v('v')}
 
   | !{v('test|strtoupper')}
