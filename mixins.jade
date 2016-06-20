@@ -34,12 +34,12 @@ mixin else()
 
 mixin switch(condition)
   +php-wrap
-    |switch(!{condition}) 
+    |switch(!{_php_prepare_var(condition)}) 
   +php-html
     block
 mixin case(variant)
   +php-wrap
-    |case (!{variant}) :
+    |case (!{_php_prepare_var(variant)}) :
   +php-html
     block
   +php-wrap
