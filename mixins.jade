@@ -18,7 +18,7 @@ mixin php-html()
     |}
 mixin php-function(name, args)
   +php-wrap
-    |!{name} (!{args}) 
+    |!{name} (!{_php_prepare_var(args)}) 
   +php-html
     block
 
@@ -59,11 +59,21 @@ mixin set(name, value)
   +php-wrap
     |$!{name} = !{value};
 
+- function _php_prepare_var(str) {
+-   function modify(str) {
+-     str = str.split('|')
+-     var variable = '$' + str.shift().replace(/\./g, '->')
+-     str.forEach(function(func){
+-       variable = func + '(' + variable + ')'
+-     })
+-     return variable
+-   }
+-   return str.split(' ').map(function(part){
+-     return /^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\.|\||$)/.test(part) && !/^(a(bstract|nd|rray|s))|(c(a(llable|se|tch)|l(ass|one)|on(st|tinue)))|(d(e(clare|fault)|ie|o))|(e(cho|lse(if)?|mpty|nd(declare|for(each)?|if|switch|while)|val|x(it|tends)))|(f(inal|or(each)?|unction))|(g(lobal|oto))|(i(f|mplements|n(clude(_once)?|st(anceof|eadof)|terface)|sset))|(n(amespace|ew))|(p(r(i(nt|vate)|otected)|ublic))|(re(quire(_once)?|turn))|(s(tatic|witch))|(t(hrow|r(ait|y)))|(u(nset|se))|(__halt_compiler|break|list|(x)?or|var|while)$/.test(part) ? modify(part) : part
+-   }).join(' ')
+- }
+
 - function v(str) {
--   str = str.split('|')
--   var variable = '$' + str.shift().replace(/\./g, '->')
--   str.forEach(function(func){
--     variable = func + '(' + variable + ')'
--   })
--   return '<?=' + variable + ';?>'
+-   str = _php_prepare_var(str)
+-   return '<?=' + str + ';?>'
 - }
