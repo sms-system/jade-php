@@ -24,13 +24,20 @@ mixin php-function(name, args)
     block
 
 mixin if(condition)
-  +php-function('if', condition)
-    block
+  if(condition==''||condition==0||condition=='false')
+    - skipThan = true
+  else
+    - skipThan = false
+    +php-function('if', condition)
+      block
 mixin else()
-  +php-wrap
-    |else 
-  +php-html
+  if(skipThan)
     block
+  else
+    +php-wrap
+      |else 
+    +php-html
+      block
 
 mixin switch(condition)
   +php-wrap
