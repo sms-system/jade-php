@@ -8,9 +8,9 @@ mixin php()
   != blockResult.split(/{%.*?}/g).reduce((a,b)=>a+_php_print_var((tmp=placehold_matches[i++]).substr(2, tmp.length-3))+b).replace(/\?><\?php/g, '')
 
 mixin php-wrap()
-  <?php 
+  |<?php 
   block
-  ?>
+  |?>
 mixin php-html()
   +php-wrap
     |{
